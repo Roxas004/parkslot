@@ -17,11 +17,13 @@ use App\Http\Livewire\ReservationForm;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+
+Route::get('/vosreservations', function () {
+    return view('utilisateur.vosReservations');
 });
-
-
+Route::get('/', function () {
+    return view('utilisateur.reservations');
+});
 Route::get('/app.reservation', function () {
     return view('reservation');
 });
