@@ -22,7 +22,6 @@ class Voiture extends Model
         'modele_voiture',
         'couleur_voiture',
         'immatriculation',
-        'place_attente',
         'user_id',
         'parking_id',
     ];

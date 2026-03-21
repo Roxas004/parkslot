@@ -13,20 +13,12 @@ return new class extends Migration
             $table->string('modele_voiture');
             $table->string('immatriculation')->unique();
 
-            // Position dans la file d'attente (null = pas en attente)
-            $table->unsignedInteger('place_attente')->nullable();
 
             // Relation Posseder : chaque voiture appartient à un membre
             $table->foreignId('user_id')
                 ->constrained('users')
                 ->onDelete('cascade');
 
-            // Relation Cif : parking pour lequel la voiture est en file d'attente
-            // Nullable car la voiture n'est pas forcément en attente
-            $table->foreignId('parking_id')
-                ->nullable()
-                ->constrained('parkings')
-                ->onDelete('set null');
 
             $table->timestamps();
         });

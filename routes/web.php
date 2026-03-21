@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReservationController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\IdeaController;
 use App\Http\Livewire\ReservationForm;
@@ -16,7 +17,7 @@ use App\Http\Livewire\ReservationForm;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
+Route::post('/reservation', [ReservationController::class, 'store'])->middleware('auth')->name('reservation.store');
 
 Route::get('/vosreservations', function () {
     return view('utilisateur.vosReservations');
