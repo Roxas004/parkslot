@@ -20,12 +20,10 @@ use App\Http\Livewire\ReservationForm;
 
 Route::get('/vosreservations', function () {
     return view('utilisateur.vosReservations');
-});
+})->name('vosreservations');
+
 Route::get('/', function () {
     return view('utilisateur.reservations');
-});
-Route::get('/app.reservation', function () {
-    return view('reservation');
 });
 
 Route::middleware('auth')->group(function () {
