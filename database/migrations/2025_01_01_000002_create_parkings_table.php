@@ -12,8 +12,6 @@ return new class extends Migration
             $table->id();
             $table->string('ville_parking');
             $table->string('lib_parking');
-            // Durée par défaut des réservations en minutes, définie par l'admin
-            $table->unsignedInteger('duree_reservation_defaut')->default(480); // 8h par défaut
             $table->timestamps();
         });
     }

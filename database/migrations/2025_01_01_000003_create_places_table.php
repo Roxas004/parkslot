@@ -10,7 +10,6 @@ return new class extends Migration
     {
         Schema::create('places', function (Blueprint $table) {
             $table->id();
-            // Ex : "A1", "B12" — unique au sein d'un même parking
             $table->string('num_place');
             $table->boolean('disponible')->default(true);
             $table->foreignId('parking_id')
@@ -18,8 +17,9 @@ return new class extends Migration
                 ->onDelete('cascade');
             $table->timestamps();
 
-            // Un numéro de place doit être unique dans un parking donné
             $table->unique(['num_place', 'parking_id']);
+
+            $table->timestamps();
         });
     }
 
