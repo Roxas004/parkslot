@@ -5,8 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Casts\Attribute;
-use Carbon\Carbon;
 
 class Reservation extends Model
 {
@@ -25,4 +23,13 @@ class Reservation extends Model
         'fin_reservation'   => 'datetime',
     ];
 
+    public function getPlace(): BelongsTo
+    {
+        return $this->belongsTo(Place::class, 'place_id');
+    }
+
+    public function getVoiture(): BelongsTo
+    {
+        return $this->belongsTo(Voiture::class, 'voiture_id');
+    }
 }

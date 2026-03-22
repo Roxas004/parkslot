@@ -17,4 +17,14 @@ class FileAttente extends Model
         'parking_id',
         'position',
     ];
+
+    public function getVoitureListeAttente(): BelongsTo
+    {
+        return $this->belongsTo(Voiture::class, 'voiture_id');
+    }
+
+    public function getParkingListeAttente(): BelongsTo
+    {
+        return $this->belongsTo(Parking::class, 'parking_id');
+    }
 }

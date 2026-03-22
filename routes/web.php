@@ -2,13 +2,14 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\VosReservationController;
 use Illuminate\Support\Facades\Route;
 
 Route::post('/reservation', [ReservationController::class, 'store'])->middleware('auth')->name('reservation.store');
 
-Route::get('/vosreservations', function () {
-    return view('utilisateur.vosReservations');
-})->name('vosreservations');
+Route::get('/vosreservations', [VosReservationController::class, 'index'])
+    ->name('vosreservations');
+
 
 Route::get('/', function () {
     return view('utilisateur.reservations');
