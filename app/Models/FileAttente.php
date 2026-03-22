@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class FileAttente extends Model
 {
@@ -16,15 +15,20 @@ class FileAttente extends Model
         'voiture_id',
         'parking_id',
         'position',
+        'user_id',
     ];
 
-    public function getVoitureListeAttente(): BelongsTo
+    public function voiture()
     {
         return $this->belongsTo(Voiture::class, 'voiture_id');
     }
 
-    public function getParkingListeAttente(): BelongsTo
+    public function parking()
     {
         return $this->belongsTo(Parking::class, 'parking_id');
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

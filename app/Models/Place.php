@@ -20,7 +20,7 @@ class Place extends Model
         'disponible' => 'boolean',
     ];
 
-    public function getParking(): BelongsTo
+    public function parking(): BelongsTo
     {
         return $this->belongsTo(Parking::class, 'parking_id');
     }

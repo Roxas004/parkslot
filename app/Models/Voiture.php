@@ -38,4 +38,8 @@ class Voiture extends Model
                       ->orWhere('fin_reservation', '>', now());
             });
     }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
