@@ -24,15 +24,11 @@ class Reservation extends Model
     ];
     public function place()
     {
-        return $this->belongsTo(Place::class, 'place_id');
-    }
-    public function getPlace(): BelongsTo
-    {
-        return $this->belongsTo(Place::class, 'place_id');
+        return $this->belongsTo(Place::class);
     }
 
-    public function getVoiture(): BelongsTo
+    public function voiture()
     {
-        return $this->belongsTo(Voiture::class, 'voiture_id');
+        return $this->belongsTo(Voiture::class);
     }
 }

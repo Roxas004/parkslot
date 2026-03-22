@@ -24,12 +24,11 @@
                     </thead>
                     <tbody>
 
-
                     @foreach ($reservationsActives as $reservation)
                         <tr class="border-b border-gray-100">
-                            <td class="px-4 py-3">{{ $reservation->getPlace->getParking->lib_parking }}</td>
-                            <td class="px-4 py-3">{{ $reservation->getPlace->num_place }}</td>
-                            <td class="px-4 py-3">{{ $reservation->getVoiture->immatriculation }}</td>
+                            <td class="px-4 py-3">{{ $reservation->place?->parking?->lib_parking ?? 'N/A' }}</td>
+                            <td class="px-4 py-3">{{ $reservation->place?->num_place ?? 'N/A' }}</td>
+                            <td class="px-4 py-3">{{ $reservation->voiture?->immatriculation ?? 'N/A' }}</td>
                             <td class="px-4 py-3">{{ $reservation->debut_reservation->format('d/m/Y') }}</td>
                             <td class="px-4 py-3">{{ $reservation->debut_reservation->format('H\hi') }}</td>
                             <td class="px-4 py-3">{{ $reservation->fin_reservation?->format('H\hi') ?? '–' }}</td>
@@ -37,12 +36,11 @@
                         </tr>
                     @endforeach
 
-
                     @foreach ($fileAttente as $entree)
                         <tr class="border-b border-gray-100">
-                            <td class="px-4 py-3">{{ $entree->getParkingListeAttente->lib_parking }}</td>
+                            <td class="px-4 py-3">{{ $entree->parking?->lib_parking ?? 'N/A' }}</td>
                             <td class="px-4 py-3">–</td>
-                            <td class="px-4 py-3">{{ $entree->getVoitureListeAttente->immatriculation }}</td>
+                            <td class="px-4 py-3">{{ $entree->voiture?->immatriculation ?? 'N/A' }}</td>
                             <td class="px-4 py-3">{{ $entree->created_at->format('d/m/Y') }}</td>
                             <td class="px-4 py-3">–</td>
                             <td class="px-4 py-3">–</td>
@@ -75,9 +73,9 @@
                     <tbody>
                     @foreach ($historique as $reservation)
                         <tr class="border-b border-gray-100">
-                            <td class="px-4 py-3">{{ $reservation->getPlace->getParking->lib_parking }}</td>
-                            <td class="px-4 py-3">{{ $reservation->getPlace->num_place }}</td>
-                            <td class="px-4 py-3">{{ $reservation->getVoiture->immatriculation }}</td>
+                            <td class="px-4 py-3">{{ $reservation->place?->parking?->lib_parking ?? 'N/A' }}</td>
+                            <td class="px-4 py-3">{{ $reservation->place?->num_place ?? 'N/A' }}</td>
+                            <td class="px-4 py-3">{{ $reservation->voiture?->immatriculation ?? 'N/A' }}</td>
                             <td class="px-4 py-3">{{ $reservation->debut_reservation->format('d/m/Y') }}</td>
                             <td class="px-4 py-3">{{ $reservation->debut_reservation->format('H\hi') }}</td>
                             <td class="px-4 py-3">{{ $reservation->fin_reservation->format('H\hi') }}</td>

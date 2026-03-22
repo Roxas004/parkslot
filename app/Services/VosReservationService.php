@@ -14,7 +14,7 @@ class VosReservationService
     {
         return Auth::user()
             ->reservations()
-            ->with(['getPlace.getParking', 'getVoiture'])
+            ->with(['place.parking', 'voiture'])
             ->where(function ($query) {
                 $query->whereNull('fin_reservation')
                     ->orWhere('fin_reservation', '>', now());
@@ -23,27 +23,20 @@ class VosReservationService
             ->get();
     }
 
-    /**
-     * Retourne les réservations passées de l'utilisateur connecté.
-     */
     public function historiqueResa()
     {
         return Auth::user()
             ->reservations()
-            ->with(['getPlace.getParking', 'getVoiture'])
+            ->with(['place.parking', 'voiture'])
             ->whereNotNull('fin_reservation')
             ->where('fin_reservation', '<=', now())
             ->orderByDesc('fin_reservation')
             ->get();
     }
-
-    /**
-     * Retourne les entrées en file d'attente de l'utilisateur connecté.
-     */
     public function fileAttenteEnCours()
     {
-        return FileAttente::with(['getVoitureListeAttente', 'getParkingListeAttente'])
-            ->whereHas('getVoitureListeAttente', fn ($q) => $q->where('user_id', Auth::id()))
+        return FileAttente::with(['voiture', 'parking'])
+            ->whereHas('voiture', fn ($q) => $q->where('user_id', Auth::id()))
             ->orderBy('position')
             ->get();
     }
