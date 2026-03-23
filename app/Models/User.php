@@ -32,7 +32,12 @@ class User extends Authenticatable
         'password' => 'string',
     ];
 
-
+    public function isAdmin()
+    {
+        return $this->role === 'admin';
+    }
+    public function isUser()
+    {return $this->role==='user';}
     public function voitures(): HasMany
     {
         return $this->hasMany(Voiture::class);

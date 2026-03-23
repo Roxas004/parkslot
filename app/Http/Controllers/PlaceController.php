@@ -1,15 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class QueueController extends Controller
+use Illuminate\Http\Request;
+
+class PlaceController extends Controller
 {
     public function index(): View
     {
-        return view('admin.queue');
+        return view('admin.place');
     }
 
 }

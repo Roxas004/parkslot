@@ -1,5 +1,5 @@
 <x-layouts.parkslot>
-
+    @if(Auth::user()->isUser())
     <div class="w-full h-[420px] overflow-hidden">
         <img src="{{ asset('images/parking.jpg') }}"
              alt="Parking"
@@ -42,5 +42,9 @@
         </form>
 
     </div>
-
+    @else
+          @if(Auth::user()->isAdmin())
+              Ici on met le contenue de la page d'acceuil de l'admin (voir figma)
+        @endif
+    @endif
 </x-layouts.parkslot>
