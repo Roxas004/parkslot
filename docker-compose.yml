@@ -1,38 +1,55 @@
 services:
-  app:
-    build: .
-    container_name: parkslot_app
-    ports:
-      - "8000:80"
-    volumes:
-      - .:/var/www/html
-    depends_on:
-      - db
+    app:
+        build: .
+        container_name: parkslot_app
+        ports:
+            - "8000:80"
+        volumes:
+            - .:/var/www/html
+        depends_on:
+            db:
+                condition: service_healthy
 
-  db:
-    image: mysql:8.0
-    container_name: parkslot_db
-    environment:
-      MYSQL_DATABASE: parkslot
-      MYSQL_USER: parkslot
-      MYSQL_PASSWORD: parkslot
-      MYSQL_ROOT_PASSWORD: root
-    ports:
-      - "3306:3306"
-    volumes:
-      - dbdata:/var/lib/mysql
+    db:
+        image: mysql:8.0
+        container_name: parkslot_db
+        environment:
+            MYSQL_DATABASE: parkslot
+            MYSQL_USER: parkslot
+            MYSQL_PASSWORD: parkslot
+            MYSQL_ROOT_PASSWORD: root
+        ports:
+            - "3306:3306"
+        volumes:
+            - dbdata:/var/lib/mysql
+        healthcheck:
+            test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+            interval: 5s
+            timeout: 3s
+            retries: 10
 
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    container_name: parkslot_phpmyadmin
-    environment:
-      PMA_HOST: db
-      PMA_USER: root
-      PMA_PASSWORD: root
-    ports:
-      - "8080:80"
-    depends_on:
-      - db
+    scheduler:
+        build: .
+        container_name: parkslot_scheduler
+        volumes:
+            - .:/var/www/html
+        depends_on:
+            db:
+                condition: service_healthy
+        command: sh -c "while true; do php artisan schedule:run; sleep 60; done"
+
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        container_name: parkslot_phpmyadmin
+        environment:
+            PMA_HOST: db
+            PMA_USER: root
+            PMA_PASSWORD: root
+        ports:
+            - "8080:80"
+        depends_on:
+            db:
+                condition: service_healthy
 
 volumes:
-  dbdata:
+    dbdata:
