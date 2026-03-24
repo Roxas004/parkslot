@@ -28,5 +28,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/places', [PlaceController::class, 'index'])->name('places');
     Route::get('/fileattente', [QueueController::class, 'index'])->name('fileattente');
     Route::get('/historique', [HistoriqueController::class, 'index'])->name('historique');
+    Route::post('/admin/queue/swap', [QueueController::class, 'swap'])->name('admin.queue.swap'); // ici
 });
 require __DIR__.'/auth.php';

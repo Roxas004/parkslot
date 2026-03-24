@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreign('parking_id')->references('id')->on('parkings')->onDelete('cascade');
 
             $table->unique(['voiture_id', 'parking_id']);
-            $table->unique(['parking_id', 'position']);
+            $table->index(['parking_id', 'position']);
         });
     }
 
