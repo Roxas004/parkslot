@@ -1,4 +1,5 @@
 # Parkslot
+![Parkslot Images](public/images/readme.jpg)
 ## Description
 Parkslot est une application web de gestion de parkings et de files d’attente, développée en Laravel 10 avec MySQL.
 Elle permet aux utilisateurs de réserver des places, et aux administrateurs de gérer les parkings, les files d’attente et l’historique des réservations.
