@@ -13,6 +13,10 @@ class ReservationController extends Controller
     {
         $this->ReservationService = $reservationService;
     }
+    public function index() {
+        return view('utilisateur.reservations');
+    }
+
     public function store(Request $request)
     {
         $request->validate([

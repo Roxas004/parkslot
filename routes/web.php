@@ -9,20 +9,18 @@ use App\Http\Controllers\HistoriqueController;
 use App\Http\Controllers\QueueController;
 use App\Http\Controllers\PlaceController;
 
-Route::post('/reservation', [ReservationController::class, 'store'])->middleware('auth')->name('reservation.store');
 
-Route::get('/vosreservations', [VosReservationController::class, 'index'])
-    ->name('vosreservations');
-
-
-Route::get('/', function () {
-    return view('utilisateur.reservations');
-});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::post('/reservation', [ReservationController::class, 'store'])->name('reservation.store');
+    Route::get('/reservation', [ReservationController::class, 'index'])->name('reservation.index');
+    Route::get('/', [ReservationController::class, 'index'])->name('reservation.index');
+    Route::get('/vosreservations', [VosReservationController::class, 'index'])
+        ->name('vosreservations');
 });
 
 Route::middleware(['auth', 'admin'])->group(function () {

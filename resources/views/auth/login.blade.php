@@ -39,9 +39,16 @@
                 </a>
             @endif
 
-            <x-primary-button class="ml-3  ">
+            <x-primary-button class="ml-3">
                 {{ __('Se connecter') }}
             </x-primary-button>
+        </div>
+
+        <div class="mt-4 text-center">
+            <span class="text-sm text-gray-600">Pas encore de compte ?</span>
+            <a href="{{ route('register') }}" class="ml-1 text-sm text-indigo-600 hover:text-indigo-900 underline">
+                S'inscrire
+            </a>
         </div>
     </form>
 </x-guest-layout>
