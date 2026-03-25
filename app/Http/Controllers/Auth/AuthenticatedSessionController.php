@@ -44,7 +44,6 @@ class AuthenticatedSessionController extends Controller
             throw $e;
         }
 
-
         RateLimiter::clear($key);
 
         $request->session()->regenerate();
