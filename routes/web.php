@@ -43,6 +43,14 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/admin/queue/swap', [QueueController::class, 'swap'])->name('admin.queue.swap');
 
     Route::get('/historique', [HistoriqueController::class, 'index'])->name('historique');
+
+    Route::get('/places-occupees', [PlaceController::class, 'index'])
+        ->name('places.index');
+
+    Route::delete('/places-occupees/{id}', [PlaceController::class, 'destroy'])
+        ->name('places.destroy');
 });
+
+
 
 require __DIR__ . '/auth.php';
