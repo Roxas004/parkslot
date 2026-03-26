@@ -11,14 +11,14 @@ use Illuminate\View\View;
 class GererUtilisateurController extends Controller
 {
     public function __construct(
-        private readonly GererUtilisateurService $gererUtilisateurService
+        private GererUtilisateurService $gererUtilisateurService
     ) {}
 
     public function index(Request $request): View
     {
-        $users = $this->gererUtilisateurService->ListerUtilisateurs(
-            $request->get('search'),
-            $request->get('filter'),
+        $users = $this->gererUtilisateurService->listerUtilisateurs(
+            $request->string('search')->toString() ?: null,
+            $request->string('filter')->toString() ?: null,
         );
 
         return view('admin.gererUtilisateur', compact('users'));
@@ -26,28 +26,28 @@ class GererUtilisateurController extends Controller
 
     public function accepter(User $user): RedirectResponse
     {
-        $this->gererUtilisateurService->AccepterUtilisateur($user);
+        $this->gererUtilisateurService->accepterUtilisateur($user);
 
         return back()->with('success', 'Utilisateur accepté.');
     }
 
     public function refuser(User $user): RedirectResponse
     {
-        $this->gererUtilisateurService->RefuserUtilisateur($user);
+        $this->gererUtilisateurService->refuserUtilisateur($user);
 
         return back()->with('success', 'Utilisateur refusé.');
     }
 
     public function supprimer(User $user): RedirectResponse
     {
-        $this->gererUtilisateurService->SupprimerUtilisateur($user);
+        $this->gererUtilisateurService->supprimerUtilisateur($user);
 
         return back()->with('success', 'Utilisateur supprimé.');
     }
 
     public function envoyerResMdp(User $user): RedirectResponse
     {
-        $this->gererUtilisateurService->EnvoyerResMdp($user);
+        $this->gererUtilisateurService->envoyerResetMdp($user);
 
         return back()->with('success', 'Email de réinitialisation envoyé.');
     }

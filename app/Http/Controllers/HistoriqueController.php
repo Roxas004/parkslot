@@ -1,13 +1,25 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\View\View;
+
+use App\Services\HistoriqueService;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class HistoriqueController extends Controller
 {
-    public function index(): View
+    public function __construct(
+        private HistoriqueService $historiqueService
+    ) {}
+
+    public function index(Request $request): View
     {
-        return view('admin.historique');
+        $data = $this->historiqueService->getHistorique(
+            parkingId: $request->integer('parking_id') ?: null,
+            numPlace:  $request->string('num_place')->toString() ?: null,
+            search:    $request->string('search')->toString() ?: null,
+        );
+
+        return view('admin.historique', $data);
     }
 }

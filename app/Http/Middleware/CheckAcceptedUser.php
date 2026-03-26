@@ -12,14 +12,13 @@ class CheckAcceptedUser
     {
         $user = Auth::user();
 
-        // Vérifie le bon champ : 'approved' au lieu de 'is_accepted'
-        if ($user && !$user->approved) {
+        if ($user && ! $user->approved) {
             Auth::logout();
             $request->session()->invalidate();
             $request->session()->regenerateToken();
 
             return redirect()->route('login')->withErrors([
-                'email' => 'Votre compte n’est pas encore activé par l’administrateur.'
+                'email' => "Votre compte n'est pas encore active par l'administrateur.",
             ]);
         }
 

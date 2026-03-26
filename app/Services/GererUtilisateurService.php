@@ -4,10 +4,11 @@ namespace App\Services;
 
 use App\Models\User;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Password;
 
 class GererUtilisateurService
 {
-    public function ListerUtilisateurs(?string $search, ?string $filter): LengthAwarePaginator
+    public function listerUtilisateurs(?string $search, ?string $filter): LengthAwarePaginator
     {
         $query = User::where('role', 'user')
             ->orderBy('approved')
@@ -30,24 +31,23 @@ class GererUtilisateurService
         return $query->paginate(15)->withQueryString();
     }
 
-    public function AccepterUtilisateur(User $user): void
+    public function accepterUtilisateur(User $user): void
     {
         $user->update(['approved' => true]);
     }
 
-    public function RefuserUtilisateur(User $user): void
+    public function refuserUtilisateur(User $user): void
     {
         $user->update(['approved' => false]);
     }
 
-    public function SupprimerUtilisateur(User $user): void
+    public function supprimerUtilisateur(User $user): void
     {
         $user->delete();
     }
 
-    public function EnvoyerResMdp(User $user): void
+    public function envoyerResetMdp(User $user): void
     {
         Password::sendResetLink(['email' => $user->email]);
     }
-
 }

@@ -24,33 +24,26 @@ Route::middleware(['auth', 'accepted'])->group(function () {
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/utilisateurs', [GererUtilisateurController::class, 'index'])
         ->name('utilisateurs.index');
-
     Route::post('/utilisateurs/{user}/accepter', [GererUtilisateurController::class, 'accepter'])
         ->name('utilisateurs.accepter');
-
     Route::post('/utilisateurs/{user}/refuser', [GererUtilisateurController::class, 'refuser'])
         ->name('utilisateurs.refuser');
-
     Route::delete('/utilisateurs/{user}', [GererUtilisateurController::class, 'supprimer'])
         ->name('utilisateurs.supprimer');
-
     Route::post('/utilisateurs/{user}/reset-mdp', [GererUtilisateurController::class, 'envoyerResMdp'])
         ->name('utilisateurs.reset-mdp');
 
+    Route::get('/places/gestion', [PlaceController::class, 'gestion'])->name('places.gestion');
+    Route::post('/places', [PlaceController::class, 'store'])->name('places.store');
+    Route::put('/places/{id}', [PlaceController::class, 'update'])->name('places.update');
+    Route::delete('/places/place/{id}', [PlaceController::class, 'destroyPlace'])->name('places.destroyPlace');
     Route::get('/places', [PlaceController::class, 'index'])->name('places');
+    Route::delete('/places/{id}', [PlaceController::class, 'destroy'])->name('places.destroy');
 
     Route::get('/fileattente', [QueueController::class, 'index'])->name('fileattente');
     Route::post('/admin/queue/swap', [QueueController::class, 'swap'])->name('admin.queue.swap');
 
     Route::get('/historique', [HistoriqueController::class, 'index'])->name('historique');
-
-    Route::get('/places-occupees', [PlaceController::class, 'index'])
-        ->name('places.index');
-
-    Route::delete('/places-occupees/{id}', [PlaceController::class, 'destroy'])
-        ->name('places.destroy');
 });
-
-
 
 require __DIR__ . '/auth.php';
