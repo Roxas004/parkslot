@@ -46,11 +46,11 @@
                         <td class="px-5 py-4 text-gray-500">{{ $user->email }}</td>
                         <td class="px-5 py-4 text-center">
                             @if ($user->approved)
-                                <span class="bg-green-100 text-green-700 text-xs font-semibold px-3 py-1 rounded-full">
+                                <span class=" text-green-700 text-xs font-semibold px-3 py-1 rounded-full">
                                     Approuvé
                                 </span>
                             @else
-                                <span class="bg-yellow-100 text-yellow-700 text-xs font-semibold px-3 py-1 rounded-full">
+                                <span class=" text-orange-600 text-xs font-semibold px-3 py-1 rounded-full">
                                     En attente
                                 </span>
                             @endif
@@ -62,7 +62,7 @@
                                     <form method="POST" action="{{ route('utilisateurs.accepter', $user) }}">
                                         @csrf
                                         <button type="submit"
-                                                class="text-xs font-medium bg-green-600 hover:bg-green-700 text-white px-3 py-1.5 rounded-lg transition">
+                                                class="text-xs font-medium bg-blue-800 hover:bg-blue-700 text-white px-3 py-1.5 rounded-lg transition">
                                             Accepter
                                         </button>
                                     </form>
@@ -70,7 +70,7 @@
                                     <form method="POST" action="{{ route('utilisateurs.refuser', $user) }}">
                                         @csrf
                                         <button type="submit"
-                                                class="text-xs font-medium bg-orange-500 hover:bg-orange-600 text-white px-3 py-1.5 rounded-lg transition">
+                                                class="text-xs px-4 font-medium bg-blue-800 hover:bg-blue-700 text-white  py-1.5 rounded-lg transition">
                                             Refuser
                                         </button>
                                     </form>
@@ -80,7 +80,7 @@
                                       onsubmit="return confirm('Envoyer un email de réinitialisation à {{ $user->email }} ?')">
                                     @csrf
                                     <button type="submit"
-                                            class="text-xs font-medium bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded-lg transition">
+                                            class="text-xs font-medium bg-gray-900 hover:bg-gray-700 text-white px-3 py-1.5 rounded-lg transition">
                                         Reset MDP
                                     </button>
                                 </form>
