@@ -29,6 +29,8 @@ class PlaceController extends Controller
     {
         $this->placesService->deleteReservation($id);
 
+        return redirect()->route('places')->with('success', 'Réservation supprimée.');
+
     }
 
     public function gestion(Request $request): View
@@ -56,6 +58,7 @@ class PlaceController extends Controller
             return back()->withErrors(['num_place' => $e->getMessage()])->withInput();
         }
 
+        return redirect()->back()->with('success', 'Place créée.');
     }
 
     public function update(Request $request, int $id): RedirectResponse
@@ -70,6 +73,7 @@ class PlaceController extends Controller
             return back()->withErrors(['error' => $e->getMessage()]);
         }
 
+        return redirect()->back()->with('success', 'Place modifiée.');
     }
 
     public function destroyPlace(int $id): RedirectResponse
