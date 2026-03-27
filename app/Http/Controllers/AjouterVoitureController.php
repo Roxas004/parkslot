@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
-use App\Models\Parking;
-use App\Models\Reservation;
-use App\Models\User;
 use App\Services\AjouterVoitureService;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\View\View;
+
 
 class AjouterVoitureController extends Controller
 

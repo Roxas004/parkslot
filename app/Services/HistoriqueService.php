@@ -2,15 +2,12 @@
 
 namespace App\Services;
 
-use App\Models\FileAttente;
 use App\Models\Parking;
 use App\Models\Place;
 use App\Models\Reservation;
 use App\Models\Voiture;
 use App\Models\User;
-use Illuminate\Support\Collection;
-use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Facades\DB;
+
 
 class HistoriqueService
 {

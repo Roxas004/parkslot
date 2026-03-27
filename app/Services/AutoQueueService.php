@@ -2,14 +2,8 @@
 
 namespace App\Services;
 
-use App\Models\Parking;
-use App\Models\Reservation;
-use App\Models\User;
-use Illuminate\Support\Facades\DB;
 use App\Models\FileAttente;
 use App\Models\Place;
-use App\Models\Reservation as ReservationModel;
-use Illuminate\Database\Eloquent\Model;
 class AutoQueueService
 {
     protected $reservationService;
