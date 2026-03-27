@@ -18,7 +18,18 @@
                 <div class="w-px h-6 bg-gray-200 mx-3 flex-shrink-0"></div>
                 <input type="text" name="immatriculation" placeholder="Immatriculation voiture" class="flex-1 text-gray-700 placeholder-gray-400 bg-transparent outline-none text-sm min-w-0 border-0 ring-0 focus:ring-0 focus:outline-none">
                 <button type="submit" class="ml-3 flex-shrink-0 bg-black hover:bg-gray-900 text-white font-semibold text-sm px-6 py-2.5 rounded-full transition">Réserver</button>
-            </form>
+            </form>@if (session('success'))
+                <p class="text-green-400 text-sm mt-3 text-center">
+                    {{ session('success') }}
+                </p>
+            @endif
+
+            @if (session('info'))
+                <p class="text-blue-400 text-sm mt-3 text-center">
+                    {{ session('info') }}
+                </p>
+            @endif
+
         </div>
 
     @elseif(Auth::check() && Auth::user()->isAdmin())
