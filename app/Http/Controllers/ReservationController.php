@@ -13,8 +13,21 @@ class ReservationController extends Controller
     {
         $this->ReservationService = $reservationService;
     }
+    
     public function index() {
         return view('utilisateur.reservations');
+    }
+
+    public function getParkings()
+    {
+        $parkings = $this->ReservationService->getParkings();
+        return response()->json($parkings);
+    }
+
+    public function getUserVoitures()
+    {
+        $voitures = $this->ReservationService->getUserVoitures();
+        return response()->json($voitures);
     }
 
     public function store(Request $request)

@@ -5,6 +5,8 @@ namespace App\Services;
 use App\Models\Parking;
 use App\Models\Reservation;
 use App\Models\User;
+use App\Models\Voiture;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class ReservationService
@@ -40,17 +42,18 @@ class ReservationService
 
         return $reservation;
     }
+    
     public function trouverParking(string $nom): Parking
     {
         return Parking::where('lib_parking', $nom)
             ->firstOrFail();
     }
+    
     public function mettreEnListeAttente(User $user, Parking $parking, string $immatriculation): void
     {
         $voiture = $user->voitures()
             ->where('immatriculation', strtoupper($immatriculation))
             ->firstOrFail();
-
 
         $prochainePosition = DB::table('file_attente')
             ->where('parking_id', $parking->id)
@@ -63,5 +66,18 @@ class ReservationService
             'created_at' => now(),
             'updated_at' => now(),
         ]);
+    }
+
+    public function getParkings()
+    {
+        return Parking::select('lib_parking')->orderBy('lib_parking')->get();
+    }
+
+    public function getUserVoitures()
+    {
+        return Voiture::where('user_id', Auth::id())
+            ->select('immatriculation')
+            ->orderBy('immatriculation')
+            ->get();
     }
 }

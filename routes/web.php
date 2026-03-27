@@ -9,6 +9,12 @@ use App\Http\Controllers\QueueController;
 use App\Http\Controllers\PlaceController;
 use Illuminate\Support\Facades\Route;
 
+Route::middleware(['auth'])->group(function () {
+    Route::get('/api/parkings', [ReservationController::class, 'getParkings']);
+    Route::get('/api/user/voitures', [ReservationController::class, 'getUserVoitures']);
+});
+
+
 Route::middleware(['auth', 'accepted'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
