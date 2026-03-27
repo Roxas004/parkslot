@@ -20,7 +20,7 @@
             </select>
         </div>
 
-        {{-- Tableau --}}
+
         <div id="results" class="bg-white rounded-2xl overflow-hidden shadow-lg">
             <table class="w-full text-sm text-left text-gray-800">
                 <thead>
