@@ -14,10 +14,6 @@ class PlaceController extends Controller
         private PlacesService $placesService
     ) {}
 
-    // ──────────────────────────────────────────────
-    // Places occupées (réservations actives)
-    // ──────────────────────────────────────────────
-
     public function index(Request $request): View
     {
         $parkingId = $request->integer('parking_id') ?: null;
@@ -33,12 +29,7 @@ class PlaceController extends Controller
     {
         $this->placesService->deleteReservation($id);
 
-        return redirect()->back()->with('success', 'Réservation supprimée et place libérée.');
     }
-
-    // ──────────────────────────────────────────────
-    // Gestion des places (CRUD)
-    // ──────────────────────────────────────────────
 
     public function gestion(Request $request): View
     {
@@ -55,23 +46,16 @@ class PlaceController extends Controller
     {
         $validated = $request->validate([
             'parking_id' => ['required', 'integer', 'exists:parkings,id'],
-            'num_place'  => ['required', 'string', 'max:20', 'regex:/^[a-zA-Z0-9]+([-][a-zA-Z0-9]+)?$/'],
-        ], [
-            'num_place.regex' => 'Le numéro doit être alphanumérique (ex: 5, A3, 1-10).',
         ]);
 
         try {
             $this->placesService->creerPlaces(
-                (int) $validated['parking_id'],
-                $validated['num_place']
+                (int) $validated['parking_id']
             );
         } catch (\InvalidArgumentException $e) {
             return back()->withErrors(['num_place' => $e->getMessage()])->withInput();
         }
 
-        return redirect()
-            ->route('places.gestion', ['parking_id' => $validated['parking_id']])
-            ->with('success', 'Place(s) créée(s) avec succès.');
     }
 
     public function update(Request $request, int $id): RedirectResponse
@@ -81,12 +65,11 @@ class PlaceController extends Controller
         ]);
 
         try {
-            $this->placesService->modifierPlace($id, $validated['num_place']);
+            $this->placesService->modifierPlace($id);
         } catch (\RuntimeException $e) {
             return back()->withErrors(['error' => $e->getMessage()]);
         }
 
-        return redirect()->back()->with('success', 'Place modifiée.');
     }
 
     public function destroyPlace(int $id): RedirectResponse

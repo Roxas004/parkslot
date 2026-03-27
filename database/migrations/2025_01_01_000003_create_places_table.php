@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('places', function (Blueprint $table) {
             $table->id();
-            $table->string('num_place');
+            $table->integer('num_place');
             $table->boolean('disponible')->default(true);
             $table->foreignId('parking_id')
                 ->constrained('parkings')

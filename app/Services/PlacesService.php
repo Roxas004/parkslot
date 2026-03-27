@@ -43,7 +43,6 @@ class PlacesService
             $reservation->save();
             $reservation->delete();
 
-            // Libère la place
             $place->disponible = true;
             $place->save();
 
@@ -60,33 +59,20 @@ class PlacesService
             ->get();
     }
 
-    public function creerPlaces(int $parkingId, string $numPlace): void
+    public function creerPlaces(int $parkingId): void
     {
         $parking = Parking::findOrFail($parkingId);
 
-        if (str_contains($numPlace, '-')) {
-            [$debut, $fin] = explode('-', $numPlace, 2);
-            $debut = (int) trim($debut);
-            $fin   = (int) trim($fin);
+        $lastNumero = Place::where('parking_id', $parking->id)
+            ->max('num_place');
 
-            if ($debut < 1 || $fin < $debut || ($fin - $debut) > 200) {
-                throw new \InvalidArgumentException(
-                    'Plage invalide. Utilisez un format "1-20" (max 200 places par opération).'
-                );
-            }
+        $nouveauNumero = $lastNumero ? $lastNumero + 1 : 1;
 
-            for ($i = $debut; $i <= $fin; $i++) {
-                Place::firstOrCreate(
-                    ['num_place' => (string) $i, 'parking_id' => $parking->id],
-                    ['disponible' => true]
-                );
-            }
-        } else {
-            Place::firstOrCreate(
-                ['num_place' => trim($numPlace), 'parking_id' => $parking->id],
-                ['disponible' => true]
-            );
-        }
+        Place::create([
+            'num_place' => $nouveauNumero,
+            'parking_id' => $parking->id,
+            'disponible' => true
+        ]);
     }
 
     public function modifierPlace(int $placeId, string $nouveauNumero): Place
