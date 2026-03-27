@@ -28,27 +28,27 @@ class GererUtilisateurController extends Controller
     {
         $this->gererUtilisateurService->accepterUtilisateur($user);
 
-        return back()->with('success', 'Utilisateur accepté.');
+        return back();
     }
 
     public function refuser(User $user): RedirectResponse
     {
         $this->gererUtilisateurService->refuserUtilisateur($user);
 
-        return back()->with('success', 'Utilisateur refusé.');
+        return back();
     }
 
     public function supprimer(User $user): RedirectResponse
     {
         $this->gererUtilisateurService->supprimerUtilisateur($user);
 
-        return back()->with('success', 'Utilisateur supprimé.');
+        return back();
     }
 
     public function envoyerResMdp(User $user): RedirectResponse
     {
         $this->gererUtilisateurService->envoyerResetMdp($user);
 
-        return back()->with('success', 'Email de réinitialisation envoyé.');
+        return back();
     }
 }

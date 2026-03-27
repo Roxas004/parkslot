@@ -4,14 +4,6 @@
 
         <h1 class="text-4xl font-bold text-white text-center mb-8">Gestion des utilisateurs</h1>
 
-        {{-- Alertes --}}
-        @if (session('success'))
-            <div class="mb-6 bg-green-100 border border-green-300 text-green-800 text-sm rounded-xl px-5 py-4">
-                {{ session('success') }}
-            </div>
-        @endif
-
-        {{-- Recherche et filtre en direct --}}
         <div class="flex flex-wrap gap-3 mb-6">
             <input type="text"
                    id="search"
@@ -65,15 +57,6 @@
                                                 class="text-xs font-medium bg-blue-800 hover:bg-blue-700 text-white px-3 py-1.5 rounded-lg transition">
                                             Accepter
                                         </button>
-                                    </form>
-                                @else
-                                    <form method="POST" action="{{ route('utilisateurs.refuser', $user) }}">
-                                        @csrf
-                                        <button type="submit"
-                                                class="text-xs px-4 font-medium bg-blue-800 hover:bg-blue-700 text-white  py-1.5 rounded-lg transition">
-                                            Refuser
-                                        </button>
-                                    </form>
                                 @endif
 
                                 <form method="POST" action="{{ route('utilisateurs.reset-mdp', $user) }}"
