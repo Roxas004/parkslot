@@ -30,6 +30,12 @@
                         </x-slot>
 
                         <x-slot name="content">
+                            @if(Auth::check() && Auth::user()->isUser())
+                                <x-dropdown-link :href="route('vosreservations')">
+                                    {{ __('Vos réservations') }}
+                                </x-dropdown-link>
+                            @endif
+
                             <x-dropdown-link :href="route('profile.edit')">
                                 {{ __('Profil') }}
                             </x-dropdown-link>
@@ -42,13 +48,6 @@
                                     {{ __('Se déconnecter') }}
                                 </x-dropdown-link>
                             </form>
-                            @if(Auth::check() && Auth::user()->isUser())
-                            <x-dropdown-link :href="route('vosreservations')">
-                                {{ __('Vos réservations') }}
-                            </x-dropdown-link>
-                            @endif
-
-
                         </x-slot>
                     </x-dropdown>
                 </div>

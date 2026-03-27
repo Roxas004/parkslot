@@ -15,10 +15,8 @@ class Voiture extends Model
 
     protected $fillable = [
         'modele_voiture',
-        'couleur_voiture',
         'immatriculation',
         'user_id',
-        'parking_id',
     ];
 
     protected $casts = [
@@ -30,14 +28,7 @@ class Voiture extends Model
         return $this->hasMany(Reservation::class);
     }
 
-    public function reservationActive(): HasOne
-    {
-        return $this->hasOne(Reservation::class)
-            ->where(function ($query) {
-                $query->whereNull('fin_reservation')
-                      ->orWhere('fin_reservation', '>', now());
-            });
-    }
+
     public function user()
     {
         return $this->belongsTo(User::class);

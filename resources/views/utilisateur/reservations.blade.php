@@ -29,10 +29,18 @@
             {{ session('info') }}
         </p>
     @endif
+
+    @if (session('warning'))
+        <p class="text-red-500 text-sm mt-3 text-center">
+            {{ session('warning') }}
+        </p>
+    @endif
 </div>
 
 @elseif(Auth::check() && Auth::user()->isAdmin())
-    ici la page admin
+        <div class="w-full h-[420px] overflow-hidden">
+            <img src="{{ asset('images/parking.jpg') }}" alt="Parking" class="w-full h-full object-cover">
+        </div>
 @endif
 
 </x-layouts.parkslot>

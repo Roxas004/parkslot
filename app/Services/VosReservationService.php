@@ -7,9 +7,6 @@ use Illuminate\Support\Facades\Auth;
 
 class VosReservationService
 {
-    /**
-     * Retourne les réservations actives de l'utilisateur connecté.
-     */
     public function reservationEnCours()
     {
         return Auth::user()

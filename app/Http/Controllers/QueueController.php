@@ -2,22 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\GererQueueService;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
-use App\Services\HistoriqueService;
 use Illuminate\Http\JsonResponse;
 class QueueController extends Controller
 {
-    private HistoriqueService $historiqueService;
+    private GererQueueService $gererQueueService;
 
-    public function __construct(HistoriqueService $historiqueService)
+    public function __construct(GererQueueService $gererQueueService)
     {
-        $this->historiqueService = $historiqueService;
+        $this->gererQueueService = $gererQueueService;
     }
 
     public function index(Request $request): View
     {
-        $data = $this->historiqueService->getQueue(
+        $data = $this->gererQueueService->getQueue(
             $request->get('parking_id')
         );
 
@@ -30,7 +30,7 @@ class QueueController extends Controller
             'file2' => 'required|integer|exists:file_attente,id'
         ]);
 
-        $this->historiqueService->swapPositions(
+        $this->gererQueueService->swapPositions(
             $request->input('file1'),
             $request->input('file2')
         );

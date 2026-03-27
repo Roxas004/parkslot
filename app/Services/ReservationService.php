@@ -16,6 +16,23 @@ class ReservationService
         return $parking->places()->where('disponible', true)->exists();
     }
 
+    public function aDejaUneReservationActive(User $user, Parking $parking): bool
+    {
+        return Reservation::where('user_id', $user->id)
+            ->whereHas('place', fn ($q) => $q->where('parking_id', $parking->id))
+            ->where('fin_reservation', '>', now())
+            ->exists();
+    }
+
+    public function estEnFileAttente(User $user, Parking $parking): bool
+    {
+        return DB::table('file_attente')
+            ->join('voitures', 'voitures.id', '=', 'file_attente.voiture_id')
+            ->where('voitures.user_id', $user->id)
+            ->where('file_attente.parking_id', $parking->id)
+            ->exists();
+    }
+
     public function enregistrerReservation(User $user, Parking $parking, string $immatriculation): Reservation
     {
         $voiture = $user->voitures()
@@ -42,13 +59,12 @@ class ReservationService
 
         return $reservation;
     }
-    
+
     public function trouverParking(string $nom): Parking
     {
-        return Parking::where('lib_parking', $nom)
-            ->firstOrFail();
+        return Parking::where('lib_parking', $nom)->firstOrFail();
     }
-    
+
     public function mettreEnListeAttente(User $user, Parking $parking, string $immatriculation): void
     {
         $voiture = $user->voitures()
@@ -73,7 +89,7 @@ class ReservationService
         return Parking::select('lib_parking')->orderBy('lib_parking')->get();
     }
 
-    public function getUserVoitures()
+    public function getVoituresUtilisateur()
     {
         return Voiture::where('user_id', Auth::id())
             ->select('immatriculation')

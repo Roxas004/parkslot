@@ -57,6 +57,7 @@
                                                 class="text-xs font-medium bg-blue-800 hover:bg-blue-700 text-white px-3 py-1.5 rounded-lg transition">
                                             Accepter
                                         </button>
+                                    </form>
                                 @endif
 
                                 <form method="POST" action="{{ route('utilisateurs.reset-mdp', $user) }}"

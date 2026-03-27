@@ -8,7 +8,7 @@
 
             <form method="GET" action="{{ route('fileattente') }}" class="mb-6 text-center">
                 <select name="parking_id" onchange="this.form.submit()"
-                        class="px-6 py-2 rounded-full bg-gray-200 text-gray-700">
+                        class="px-6 py-2 rounded-full bg-white text-gray-700">
                     <option value="" disabled selected>Choisir un parking</option>
                     @foreach($parkings as $parking)
                         <option value="{{ $parking->id }}"
@@ -20,7 +20,7 @@
             </form>
 
 
-            <div class="bg-gray-200 rounded-3xl p-6">
+            <div class="bg-white rounded-3xl p-6">
                 <table class="w-full text-left">
                     <thead>
                     <tr class="text-sm text-gray-700 border-b">

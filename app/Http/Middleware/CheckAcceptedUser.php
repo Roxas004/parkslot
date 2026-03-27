@@ -18,7 +18,7 @@ class CheckAcceptedUser
             $request->session()->regenerateToken();
 
             return redirect()->route('login')->withErrors([
-                'email' => "Votre compte n'est pas encore active par l'administrateur.",
+                'email' => "Votre compte doit d'abord être activé par l'administrateur pour que vous puissiez vous connecter.",
             ]);
         }
 

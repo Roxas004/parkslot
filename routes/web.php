@@ -8,10 +8,11 @@ use App\Http\Controllers\HistoriqueController;
 use App\Http\Controllers\QueueController;
 use App\Http\Controllers\PlaceController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AjouterVoitureController;
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/api/parkings', [ReservationController::class, 'getParkings']);
-    Route::get('/api/user/voitures', [ReservationController::class, 'getUserVoitures']);
+    Route::get('/api/user/voitures', [ReservationController::class, 'getVoituresUtilisateur']);
 });
 
 
@@ -25,17 +26,23 @@ Route::middleware(['auth', 'accepted'])->group(function () {
     Route::get('/', [ReservationController::class, 'index']);
 
     Route::get('/vosreservations', [VosReservationController::class, 'index'])->name('vosreservations');
+    Route::post('/profile', [AjouterVoitureController::class, 'store'])
+        ->name('voitures.store');
 });
 
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/utilisateurs', [GererUtilisateurController::class, 'index'])
         ->name('utilisateurs.index');
+
     Route::post('/utilisateurs/{user}/accepter', [GererUtilisateurController::class, 'accepter'])
         ->name('utilisateurs.accepter');
+
     Route::post('/utilisateurs/{user}/refuser', [GererUtilisateurController::class, 'refuser'])
         ->name('utilisateurs.refuser');
+
     Route::delete('/utilisateurs/{user}', [GererUtilisateurController::class, 'supprimer'])
         ->name('utilisateurs.supprimer');
+
     Route::post('/utilisateurs/{user}/reset-mdp', [GererUtilisateurController::class, 'envoyerResMdp'])
         ->name('utilisateurs.reset-mdp');
 
@@ -50,6 +57,9 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/admin/queue/swap', [QueueController::class, 'swap'])->name('admin.queue.swap');
 
     Route::get('/historique', [HistoriqueController::class, 'index'])->name('historique');
+
+
+
 });
 
 require __DIR__ . '/auth.php';
