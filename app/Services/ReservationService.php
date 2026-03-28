@@ -33,7 +33,7 @@ class ReservationService
             ->exists();
     }
 
-    public function enregistrerReservation(User $user, Parking $parking, string $immatriculation): Reservation
+    public function enregistrerReservation(User $user, Parking $parking, string $immatriculation): void
     {
         $voiture = $user->voitures()
             ->where('immatriculation', strtoupper($immatriculation))
@@ -46,7 +46,7 @@ class ReservationService
 
         $fin = now()->addMinutes(60);
 
-        $reservation = Reservation::create([
+       Reservation::create([
             'debut_reservation' => now(),
             'fin_reservation'   => $fin,
             'user_id'           => $user->id,
@@ -56,8 +56,6 @@ class ReservationService
 
         $place->disponible = false;
         $place->save();
-
-        return $reservation;
     }
 
     public function trouverParking(string $nom): Parking
