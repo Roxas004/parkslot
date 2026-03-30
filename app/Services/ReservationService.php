@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Voiture;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Models\FileAttente;
 
 class ReservationService
 {
@@ -26,10 +27,10 @@ class ReservationService
 
     public function estEnFileAttente(User $user, Parking $parking): bool
     {
-        return DB::table('file_attente')
-            ->join('voitures', 'voitures.id', '=', 'file_attente.voiture_id')
-            ->where('voitures.user_id', $user->id)
-            ->where('file_attente.parking_id', $parking->id)
+        return FileAttente::where('parking_id', $parking->id)
+            ->whereHas('voiture', function ($q) use ($user) {
+                $q->where('user_id', $user->id);
+            })
             ->exists();
     }
 
@@ -69,16 +70,13 @@ class ReservationService
             ->where('immatriculation', strtoupper($immatriculation))
             ->firstOrFail();
 
-        $prochainePosition = DB::table('file_attente')
-            ->where('parking_id', $parking->id)
+        $prochainePosition = FileAttente::where('parking_id', $parking->id)
             ->max('position') ?? 0;
 
-        DB::table('file_attente')->insert([
+        FileAttente::create([
             'voiture_id' => $voiture->id,
             'parking_id' => $parking->id,
             'position'   => $prochainePosition + 1,
-            'created_at' => now(),
-            'updated_at' => now(),
         ]);
     }
 
